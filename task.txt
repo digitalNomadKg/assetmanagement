@@ -1,0 +1,4 @@
+1) manager can create Employeen
+2) Employee can update own data
+3) Operatoe can search Employees
+4) Manager can deactivate Employee
