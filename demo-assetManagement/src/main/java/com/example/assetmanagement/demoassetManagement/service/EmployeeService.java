@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-
 @Component
 @RequiredArgsConstructor
 public class EmployeeService {
@@ -17,5 +16,18 @@ public class EmployeeService {
     public List<Employee> getEmployees() {
         return employeeRepository.findAll();
     }
+
+    public Employee getEmployee(Long id) {
+        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee with such ID not found, please check once"));
+    }
+
+    public Employee addEmployee(Employee employee) {
+        return employeeRepository.save(employee);
+    }
+
+//    public Employee addEmployee(Employee employee) {
+//        return employeeRepository.save(employee).getId();
+//    }
+
 }
 
