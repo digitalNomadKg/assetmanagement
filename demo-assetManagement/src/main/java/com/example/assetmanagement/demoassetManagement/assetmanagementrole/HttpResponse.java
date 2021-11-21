@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import java.util.Date;
 
 public class HttpResponse {
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Europe/Tallinn")
     private Date timeStamp;
     private int httpStatusCode;

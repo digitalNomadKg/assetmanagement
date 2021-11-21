@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -15,11 +13,13 @@ import javax.persistence.Id;
 public class Employee {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    @Column(name="id", nullable = false, updatable = false)
     private Long id;
+
     private String title, firstName, lastName, gender,
-            email, department, position,
-            entryDate, leavingDate, reportingManager;
+            email, department, position, entryDate, leavingDate, reportingManager;
     private int telephone;
 }
 
