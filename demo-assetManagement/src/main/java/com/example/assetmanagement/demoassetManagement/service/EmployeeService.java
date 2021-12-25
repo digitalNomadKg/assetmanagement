@@ -2,19 +2,22 @@ package com.example.assetmanagement.demoassetManagement.service;
 
 import com.example.assetmanagement.demoassetManagement.entity.Employee;
 import com.example.assetmanagement.demoassetManagement.repository.EmployeeRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Service
 @Component
-@RequiredArgsConstructor
+
 public class EmployeeService {
 
-    private final EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
 
-    public List<Employee> getEmployees() {
-        return employeeRepository.findAll();
+    public List<Employee> getAllEmployees() {
+
+            return employeeRepository.findAll();
     }
 
     public Employee getEmployee(Long id) {
@@ -25,10 +28,20 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public Employee updateEmployee(Long id, Employee employee) {
-        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("No employee found, please check"));
+//    public Employee updateEmployee(Long id, Employee employee) {
+//        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("No employee found, please check"));
+//    }
 
-    }
+
+//    public ResponseEntity<Object>  deleteEmployee(){
+//        return employeeRepository.deleteById(id);
+//    }
+
+//
+//    public Employee deleteEmployee(Long id, Employee employee){
+//        return employeeRepository.delete(getEmployee(id));
+//
+//    }
 
 }
 
