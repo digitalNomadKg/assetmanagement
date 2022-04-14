@@ -2,26 +2,24 @@ package com.example.assetmanagement.demoassetManagement.service;
 
 import com.example.assetmanagement.demoassetManagement.entity.Employee;
 import com.example.assetmanagement.demoassetManagement.repository.EmployeeRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Service
-@Component
+@RequiredArgsConstructor
 
+@Component
 public class EmployeeService {
 
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
     public List<Employee> getAllEmployees() {
-
-            return employeeRepository.findAll();
+        return employeeRepository.findAll();
     }
 
-    public Employee getEmployee(Long id) {
-        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee with such ID not found, please check once"));
+    public void getEmployee(Long id) {
+        employeeRepository.findById(id);
     }
 
     public Employee addEmployee(Employee employee) {
