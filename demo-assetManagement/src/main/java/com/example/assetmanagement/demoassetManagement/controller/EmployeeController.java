@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
     @GetMapping
     public ResponseEntity<List<Employee>> getAll() {
@@ -51,7 +51,6 @@ public class EmployeeController {
 
     }
 
-
 //    @PutMapping(path = "/{id}")
 //    public ResponseEntity<HttpResponse> updateEmployee(@PathVariable("id") Long id, @RequestBody Employee employee) {
 //        Employee updateEmployee = employeeService.updateEmployee(id, employee);
@@ -59,6 +58,15 @@ public class EmployeeController {
 //        return httpResponse(HttpStatus.ACCEPTED, "Employee has been updated");
 //    }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") Long id) {
+        try {
+            employeeService.deleteEmployee(id);
+            return new ResponseEntity<>("Employee with given ID deleted successfully.", HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>("Employee with given ID not found error.", HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
 

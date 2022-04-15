@@ -31,9 +31,9 @@ public class EmployeeService {
 //    }
 
 
-//    public ResponseEntity<Object>  deleteEmployee(){
-//        return employeeRepository.deleteById(id);
-//    }
+    public void deleteEmployee(Long id) {
+        employeeRepository.deleteById(id);
+    }
 
 //
 //    public Employee deleteEmployee(Long id, Employee employee){

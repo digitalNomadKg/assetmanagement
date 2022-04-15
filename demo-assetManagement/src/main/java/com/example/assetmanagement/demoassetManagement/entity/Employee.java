@@ -17,15 +17,16 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     @Column(name = "id", unique = true, updatable = false)
     private Long id;
 
     @NotNull
-    @Column(name = "document")
+    @Column(name = "document", unique = true)
     private String documentId;
 
     @NotNull
-    @Column(name = "employeeDocumentType")
+    @Column(name = "employeeDocumentType", unique = true)
     private String employeeDocumentType;
 
     @NotNull
@@ -44,15 +45,16 @@ public class Employee {
     @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "gender")
-    private String gender;
-
-    @Column(name = "birthDate")
+    @NotNull
+    @Column(name = "birthDate", unique = true)
     private String birthDate;
 
     @NotNull
     @Column(name = "citizenship")
     private String citizenship;
+
+    @Column(name = "gender")
+    private String gender;
 
     @Column(name = "businessUnitName")
     private String businessUnitName;
@@ -93,8 +95,8 @@ public class Employee {
     @Column(name = "certifications")
     private String certifications;
 
-    @Column(name = "riskOfloss")
-    private String riskOfloss;
+    @Column(name = "riskOfLoss")
+    private String riskOfLoss;
 
     @Column(name = "readinessForPromotion")
     private String readinessForPromotion;
