@@ -1,6 +1,7 @@
 package com.example.assetmanagement.demoassetManagement.service;
 
 import com.example.assetmanagement.demoassetManagement.entity.Employee;
+import com.example.assetmanagement.demoassetManagement.exception.EmployeeNotFoundException;
 import com.example.assetmanagement.demoassetManagement.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,28 +19,24 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public void getEmployee(Long id) {
-        employeeRepository.findById(id);
+    public Employee getEmployee(Long id) {
+        return employeeRepository.findById(id)
+//                .orElseThrow(()-> new RuntimeException("no employee with such ID"));
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee", "id", id));
     }
 
     public Employee addEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
 
-//    public Employee updateEmployee(Long id, Employee employee) {
-//        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("No employee found, please check"));
-//    }
-
-
-    public void deleteEmployee(Long id) {
-        employeeRepository.deleteById(id);
+    public Employee updateEmployee(Long id, Employee employee) {
+        employeeRepository.findById(id);
+        return employeeRepository.save(employee);
     }
 
-//
-//    public Employee deleteEmployee(Long id, Employee employee){
-//        return employeeRepository.delete(getEmployee(id));
-//
-//    }
-
+    public void deleteEmployee(Long id) {
+        employeeRepository.findById(id);
+        employeeRepository.deleteById(id);
+    }
 }
 

@@ -31,11 +31,10 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Employee> get(@PathVariable("id") Long id) {
         try {
-            employeeService.getEmployee(id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(employeeService.getEmployee(id), HttpStatus.OK);
         } catch (Exception exception) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -48,15 +47,16 @@ public class EmployeeController {
         } catch (Exception exception) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
-//    @PutMapping(path = "/{id}")
-//    public ResponseEntity<HttpResponse> updateEmployee(@PathVariable("id") Long id, @RequestBody Employee employee) {
-//        Employee updateEmployee = employeeService.updateEmployee(id, employee);
-//        logger.info("Employee: " + updateEmployee.getFirstName() + " " + updateEmployee.getLastName() + " has been updated");
-//        return httpResponse(HttpStatus.ACCEPTED, "Employee has been updated");
-//    }
+    @PutMapping("{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable("id") Long id, @RequestBody Employee employee) {
+        try {
+            return new ResponseEntity<>(employeeService.updateEmployee(id, employee), HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
@@ -67,6 +67,5 @@ public class EmployeeController {
             return new ResponseEntity<>("Employee with given ID not found error.", HttpStatus.NOT_FOUND);
         }
     }
-
 }
 

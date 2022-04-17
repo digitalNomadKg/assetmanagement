@@ -17,7 +17,6 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
     @Column(name = "id", unique = true, updatable = false)
     private Long id;
 
@@ -30,11 +29,11 @@ public class Employee {
     private String employeeDocumentType;
 
     @NotNull
-    @Column(name = "firstName", unique = true)
+    @Column(name = "firstName")
     private String firstName;
 
     @NotNull
-    @Column(name = "lastName", unique = true)
+    @Column(name = "lastName")
     private String lastName;
 
     @NotNull
