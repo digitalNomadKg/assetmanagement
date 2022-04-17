@@ -51,11 +51,12 @@ public class EmployeeController {
 
     @PutMapping("{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable("id") Long id, @RequestBody Employee employee) {
-        try {
-            return new ResponseEntity<>(employeeService.updateEmployee(id, employee), HttpStatus.OK);
-        } catch (Exception exception) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<Employee>(employeeService.updateEmployee(id, employee), HttpStatus.OK);
+//        try {
+//            return new ResponseEntity<>(employeeService.updateEmployee(id, employee), HttpStatus.OK);
+//        } catch (Exception exception) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
     }
 
     @DeleteMapping("{id}")

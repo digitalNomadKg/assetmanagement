@@ -30,12 +30,10 @@ public class EmployeeService {
     }
 
     public Employee updateEmployee(Long id, Employee employee) {
-        employeeRepository.findById(id);
-        return employeeRepository.save(employee);
+      return   employeeRepository.findById(id).orElseThrow(()-> new EmployeeNotFoundException("User","provided ID",id));
     }
 
     public void deleteEmployee(Long id) {
-        employeeRepository.findById(id);
         employeeRepository.deleteById(id);
     }
 }

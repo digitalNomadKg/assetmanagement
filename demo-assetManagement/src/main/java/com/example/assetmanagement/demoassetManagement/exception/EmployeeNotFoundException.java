@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 
-@ResponseStatus(value = HttpStatus.NOT_FOUND)
+@ResponseStatus(HttpStatus.NOT_FOUND)
 public class EmployeeNotFoundException extends RuntimeException {
 
     private final String resourceName;
@@ -16,7 +16,6 @@ public class EmployeeNotFoundException extends RuntimeException {
         this.resourceName = resourceName;
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
-
     }
 
     public String getResourceName() {
