@@ -87,7 +87,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>demo-assetManagement-docker</finalName>
+        <finalName>demo-asset-management-docker</finalName>
     </build>
 
 </project>
