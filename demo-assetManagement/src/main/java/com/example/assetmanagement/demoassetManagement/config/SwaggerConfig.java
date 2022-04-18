@@ -30,7 +30,6 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("Asset management API")
                 .version("1.0.1")
-                .license("CCC")
                 .description("Internship task" +
                         " Internal asset management application")
                 .build();
