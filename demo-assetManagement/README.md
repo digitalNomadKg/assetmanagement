@@ -29,6 +29,7 @@ _Deployment instructions:_
     4) Application is running on localhost:8081 
     5) Swagger UI : http://localhost:8081/swagger-ui.html
     6) Docker image run: docker run -p 8081:8081 demo-asset-management-docker
+    7) Open API file can be checked via: https://editor.swagger.io/
 
 _API offers the following resource collections:_
 
