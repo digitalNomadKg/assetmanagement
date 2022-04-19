@@ -56,5 +56,5 @@ _Things learned:_
        
 _Things to be done:_  
 
-    2) Update error message
+    1) Generate API documentation
 

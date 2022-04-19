@@ -1,0 +1,390 @@
+openapi: 3.0.3
+info:
+  title: Asset management API
+  version: 1.0.0
+  description: |
+      The asset management API supports the simple , internal management system.
+      An asset management server the basic functionality of API includes creating an employee with specific fields,  updating the employee information, getting employee information, and deleting employee from the database.  API provides only a REST interface. There is no user interface. The service can be used and tested via API testing tools (e.g., SoapUI, Postman). 
+  
+      __Technical choices__
+      
+        * Spring Boot version 2.5.6
+        * Spring Data JPA
+        * Maven
+        * Lombok
+        * PostGresSql
+        * Swagger version 2.9.2
+        * API testing tool Postman
+        * Docker
+    
+      Deployment instructions:
+      * PostGresSql database:(localhost:5432/cybernetica)
+          login: postgres
+          password: root123
+      * No additional authentification
+      * Transport API provides only a REST interface.
+      * No user interface
+      * Docker image run: docker run -p 8081:8081 demo-asset-management-docker
+      
+        
+      __Implemented resource collections and functionalities__
+      
+       API offers the following resource collections:
+  
+        * Employee - represents the physical entity;
+       
+       Manage Employees:
+  
+      * Create an employee
+      * Get all employees
+      * Get employee by id
+      * Update an employee by id
+      * Delete employee by id
+  
+  contact:
+    name: Timur Baltabaev
+    url: https://www.linkedin.com/in/timur-baltabaev/
+    email: timur.baltabaev@gmail.com
+
+servers:
+  - url: http://localhost:8081/
+    description: Local development server
+externalDocs:
+  url: http://localhost:8081/swagger-ui.html
+  description: Local host swagger link
+tags:
+  - name: EmployeesManagement
+    description: API containing information about asset managemement employees.
+paths:
+  /employee:
+    get:
+      operationId: readEmployee
+      tags:
+        - EmployeesManagement
+      summary: Query a list of employees.
+      description: Collects all employees in databases and returnes them as a list.
+      responses:
+        '200':
+          description: Returned a list of Employees.
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+    
+    post:
+      operationId: createEmployee
+      tags:
+        - EmployeesManagement
+      summary: Insert a new employee.
+      description: Creates a new employee object and save it into database.
+      requestBody:
+        description: Information about new employee.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Employee"
+      responses:
+        '200':
+          description: Returned a new employee object with fullfilled id field from database.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Invalid request body content.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+                
+  /employee/{employeeId}:
+    get:
+      operationId: getEmployee
+      tags:
+        - EmployeesManagement
+      summary: Get employee information by ID.
+      description: Searches for a specific employee with given id
+      parameters:
+        - $ref: '#/components/parameters/EmployeeIdParam'
+      responses:
+        '200':
+          description: Returned a updated employee object.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '404':
+          description: Employee with given ID not found error.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '400':
+          description: Invalid request body content.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+  
+    put:
+      operationId: updateEmployee
+      tags:
+        - EmployeesManagement
+      summary: Updates employee information.
+      description: Searches for a specific employee with given id and updates its data.
+      parameters:
+        - $ref: '#/components/parameters/EmployeeIdParam'
+      requestBody:
+        required: true
+        description: Information about employee.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Employee"
+      responses:
+        '200':
+          description: Returned a updated employee object.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '404':
+          description: Employee with given ID not found error.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '400':
+          description: Invalid request body content.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+  
+    delete:
+      operationId: deleteEmployee
+      tags:
+        - EmployeesManagement
+      summary: Deletes an employee.
+      description: Searches for a specific employee with given id and deletes it from database.
+      parameters:
+        - $ref: '#/components/parameters/EmployeeIdParam'
+      responses:
+        '204':
+          description: Employee with given ID deleted successfully.
+        '404':
+          description: Employee with given ID not found error.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+  
+components:
+  parameters:
+    MaxResultsParam:
+      in: query
+      name: maxResults
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 20
+      description: The numbers of items to return.
+    EmployeeIdParam:  
+      name: employeeId
+      in: path
+      description: Common ID parameter of employee.
+      required: true
+      schema:
+        type: integer
+  schemas:
+    Employee:
+      type: object
+      required:
+        - employeeDocumentType
+        - documentId
+        - firstName
+        - lastName
+        - phone
+        - email
+        - gender
+        - birthDate
+        - citizenship
+        - businessUnitName
+        - teamName
+        - employeeType
+        - startDate
+        - endDate
+        - jobTitle
+        - jobLevel
+        - jobLevelIndicator
+        - workingHours
+        - costCenter
+        - salary
+        - educationLevel
+        - certifications
+        - riskOfLoss
+        - readinessForPromotion
+        - probationPeriod
+        - disabilityStatus
+        - workPlace
+        - contractDueDate
+        - referral
+        - hobbyGroup
+        - userPic
+        - notes
+        
+        
+      properties:
+        id:
+          type: integer
+          description: Id given by database, undefined in request body.
+          example: 0
+        employeeDocumentType:
+          type: string
+          description: Document type
+          example: "Driving license"
+        documentId:
+          type: integer
+          description: Document ID number.
+          example: 776655
+        firstName:
+          type: string
+          description: First name
+          example: "John"
+        lastName:
+          type: string
+          description: Last name
+          example: "Doe"
+        email:
+          type: string
+          description: Email address
+          example: "test@tes.com"
+        gender:
+          type: string
+          description: Gender
+          example: "Male"
+        birthDate:
+          type: string
+          description: Gender
+          example: "5/5/1985"
+        citizenship:
+          type: string
+          description: Citezinship of an employee
+          example: "Canada"
+        businessUnitName:
+          type: string
+          description: Software Development
+          example: "Java developer"
+        teamName:
+          type: string
+          description: Team where user belongs 
+          example: "A-Team"
+        employeeType:
+          type: string
+          description: Employee type of contract
+          example: "new hire"
+        startDate:
+          type: string
+          description: Employee joined company date
+          example: "1/5/1988"
+        endDate:
+          type: string
+          description: Employee left company date
+          example: "1/5/1988"
+        jobTitle:
+          type: string
+          description: position
+          example: "devops engineer"
+        jobLevel:
+          type: string
+          description: position level
+          example: "junior"
+        jobLevelIndicator:
+          type: string
+          description: Position level indicator
+          example: 1
+        workingHours:
+          type: string
+          description: Working type
+          example: "full time"
+        costCenter:
+          type: string
+          description: Cost center dependency
+          example: "EMEA372"
+        salary:
+          type: number
+          description: Salary base gross per hour
+          example: 12.5
+        educationLevel:
+          type: string
+          description: Education degree
+          example: "PHD"
+        certifications:
+          type: string 
+          description: Qualification certificates
+          example: "AWS, AZURE"
+        riskOfLoss:
+          type: string 
+          description: HR hunting level
+          example: "High, moderate, low, negotiable"
+        readinessForPromotion:
+          type: string 
+          description: Employee willingnes to be promoted
+          example: "Be ready in 3-4 months"
+        probationPeriod:
+          type: string 
+          description: Probation period
+          example: "Done, in progress, X month left, ended"
+        disabilityStatus:
+          type: string 
+          description: Health check status
+          example: "none"
+        workPlace:
+          type: string 
+          description: Working condition
+          example: "remote, hybrid, office"
+        contractDueDate:
+          type: string 
+          description: Contract validity period
+          example: "5/01/2025"
+        referral:
+          type: string 
+          description: Referral information
+          example: "full name referee"
+        hobbyGroup:
+          type: string 
+          description: Hobby information
+          example: "Chess, soccer"
+        userPic:
+          type: string 
+          description: User picture in database
+          example: "Yes/NO"
+        notes:
+          type: string 
+          description: Additional information
+          example: "USA veteran status"
+        
+    ErrorMessage:
+      type: object
+      properties:
+        title:
+          type: string
+          description: A short summary about the error type.
+          example: "Service Unavailable"
+        statusCode:
+          type: integer
+          format: int32
+          description: The HTTP status code generated by the origin server for this occurrence of the problem.
+          minimum: 100
+          maximum: 600
+          exclusiveMaximum: true
+          example: 418
+        detail:
+          type: string
+          description: A human readable explanation specific to this occurrence of the problem.
+          example: "Connection to database timed out"
+    

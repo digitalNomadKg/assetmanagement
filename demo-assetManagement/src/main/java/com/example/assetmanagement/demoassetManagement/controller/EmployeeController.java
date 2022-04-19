@@ -65,7 +65,7 @@ public class EmployeeController {
             employeeService.deleteEmployee(id);
             return new ResponseEntity<>("Employee with given ID deleted successfully.", HttpStatus.OK);
         } catch (Exception exception) {
-            return new ResponseEntity<>("Employee with given ID not found error.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Employee with given ID not found.", HttpStatus.NOT_FOUND);
         }
     }
 }

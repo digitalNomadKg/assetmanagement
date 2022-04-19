@@ -21,7 +21,6 @@ public class EmployeeService {
 
     public Employee getEmployee(Long id) {
         return employeeRepository.findById(id)
-//                .orElseThrow(()-> new RuntimeException("no employee with such ID"));
                 .orElseThrow(() -> new EmployeeNotFoundException("Employee", "id", id));
     }
 
@@ -30,7 +29,7 @@ public class EmployeeService {
     }
 
     public Employee updateEmployee(Long id, Employee employee) {
-      return   employeeRepository.findById(id).orElseThrow(()-> new EmployeeNotFoundException("User","provided ID",id));
+        return employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException("User", "provided ID", id));
     }
 
     public void deleteEmployee(Long id) {
